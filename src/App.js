@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import Header from "./components/Header";
+import Create from "./components/Create";
+import List from "./components/List";
+import Nav from "./components/Nav";
+import { useState } from "react";
+import { TodoContext } from "./components/TodoContext";
+
+const sampleTodos = {
+    id: 1,
+    title: "My Todo 1",
+    status: false,
+};
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [todos, setTodos] = useState([]);
+
+    console.log("Todos", todos);
+
+    return (
+        <TodoContext.Provider value={{ todos: todos, setTodos: setTodos }}>
+            <div className="App">
+                <Header />
+                <div className="wrapper">
+                    <div className="inner-wrap">
+                        <Create />
+                        <List />
+                    </div>
+                    <Nav />
+                </div>
+            </div>
+        </TodoContext.Provider>
+    );
 }
 
 export default App;
